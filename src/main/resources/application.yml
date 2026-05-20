@@ -1,0 +1,60 @@
+# ========================================
+# 大学管理系统 - 应用配置文件
+# ========================================
+
+server:
+  # 使用 8088 端口避免与其他服务冲突
+  port: 8088
+
+spring:
+  application:
+    name: university-management
+
+  # 启用 ANSI 彩色日志（ERROR=红、WARN=黄、INFO=绿、DEBUG=蓝）
+  output:
+    ansi:
+      enabled: always
+
+  # 数据源配置（参考 m1 项目的 MySQL 连接参数）
+  datasource:
+    url: jdbc:mysql://localhost:3306/university_db?useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # HikariCP 连接池配置
+    hikari:
+      connection-timeout: 5000
+      idle-timeout: 60000
+      maximum-pool-size: 10
+      minimum-idle: 5
+
+  # JPA / Hibernate 配置
+  jpa:
+    hibernate:
+      # update: 自动更新表结构（开发环境使用）
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  # Jackson 序列化配置
+  jackson:
+    serialization:
+      # 避免序列化 Hibernate 懒加载代理对象时报错
+      fail-on-empty-beans: false
+
+  # SQL 初始化已通过 DataInitializer.java 代码实现，无需 SQL 脚本
+  sql:
+    init:
+      mode: never
+
+# 日志配置
+logging:
+  level:
+    com.university.management: DEBUG
+    org.springframework.web: INFO
+  pattern:
+    # 定制输出格式，只保留关键信息
+    console: "%clr(%d{HH:mm:ss}){cyan} %clr(%-5level){yellow} %clr(%msg%n){blue}"
