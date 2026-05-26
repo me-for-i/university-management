@@ -1,5 +1,7 @@
 package com.university.management.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.university.management.enums.Gender;
 import jakarta.persistence.*;
@@ -14,6 +16,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "teachers")
+@TableName("teachers")
 public class Teacher {
 
     @Id
@@ -47,10 +50,12 @@ public class Teacher {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     @JsonIgnoreProperties({"teachers"})
+    @TableField(exist = false)
     private Department department;
 
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"teacher", "department"})
+    @TableField(exist = false)
     private List<Course> courses = new ArrayList<>();
 
     public Teacher() {}

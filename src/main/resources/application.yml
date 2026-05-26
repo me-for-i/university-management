@@ -58,3 +58,6 @@ logging:
   pattern:
     # 定制输出格式，只保留关键信息
     console: "%clr(%d{HH:mm:ss}){cyan} %clr(%-5level){yellow} %clr(%msg%n){blue}"
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml

@@ -1,5 +1,6 @@
 package com.university.management.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.university.management.enums.UserRole;
 import jakarta.persistence.*;
 
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
  */
 @Entity
 @Table(name = "users")
+@TableName("users")
 public class User {
 
     @Id
